@@ -1,0 +1,13 @@
+{
+  "name": "lexintel-api",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "lexibot_secure_api_client_key.js",
+  "scripts": {
+    "start": "node lexibot_secure_api_client_key.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "node-fetch": "^2.6.7"
+  }
+}
