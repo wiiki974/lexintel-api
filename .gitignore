@@ -1,0 +1,13 @@
+# Ne pas suivre les modules installés
+node_modules/
+
+# Ne pas suivre le fichier .env (clé API confidentielle)
+.env
+
+# Fichiers temporaires
+*.log
+.DS_Store
+
+# Système (macOS/Linux/Windows)
+*.swp
+Thumbs.db
