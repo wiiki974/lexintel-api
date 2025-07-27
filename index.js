@@ -1,37 +1,55 @@
 const express = require('express');
 const cors = require('cors');
-const { OpenAI } = require('openai');
-
 const app = express();
+require('dotenv').config();
+const OpenAI = require('openai');
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+
 app.use(cors());
 app.use(express.json());
 
-// ✅ Route de test pour Render
 app.get('/', (req, res) => {
   res.send('✅ LexiBot API fonctionne parfaitement !');
 });
 
-// 🚀 Route d'API principale
 app.post('/api', async (req, res) => {
   const { question } = req.body;
+
   if (!question) {
     return res.status(400).json({ error: 'Question manquante' });
   }
 
-  const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+  const prompt = `
+Tu es LexiBot, un assistant juridique IA spécialisé en droit français. Réponds toujours en 5 parties structurées et numérotées :
+
+1. Résumé
+2. Ce que dit la loi
+3. Peine encourue
+4. Solutions possibles
+5. Étapes concrètes
+
+Cas : ${question}
+`;
 
   try {
-    const chatCompletion = await openai.chat.completions.create({
-      messages: [{ role: "user", content: question }],
-      model: "gpt-3.5-turbo"
+    const response = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      messages: [{ role: "user", content: prompt }],
+      temperature: 0.7,
     });
-    res.json({ answer: chatCompletion.choices[0].message.content });
+
+    const answer = response.choices[0].message.content;
+    res.json({ answer });
+
   } catch (error) {
-    res.status(500).json({ error: "Erreur OpenAI", detail: error.message });
+    console.error(error);
+    res.status(500).json({ error: 'Erreur OpenAI' });
   }
 });
 
-// 🔁 Render utilise une variable PORT automatique
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`🚀 Serveur en ligne sur le port ${PORT}`);
