@@ -23,7 +23,9 @@ app.post('/api', async (req, res) => {
   }
 
   const prompt = `
-Tu es LexiBot, un assistant juridique IA spécialisé en droit français. Réponds toujours en 5 parties structurées et numérotées :
+Tu es LexiBot, un assistant juridique spécialisé en droit français.
+
+Réponds à l’utilisateur selon la structure suivante, avec les numéros **obligatoires** et dans cet ordre :
 
 1. Résumé
 2. Ce que dit la loi
@@ -31,7 +33,14 @@ Tu es LexiBot, un assistant juridique IA spécialisé en droit français. Répon
 4. Solutions possibles
 5. Étapes concrètes
 
-Cas : ${question}
+Important :
+- Ne change pas l'ordre.
+- Commence chaque partie par son numéro.
+- Pas d’introduction ni de phrase avant.
+- Écris des paragraphes clairs et concis pour chaque section.
+
+Voici la question de l’utilisateur :
+"${question}"
 `;
 
   try {
