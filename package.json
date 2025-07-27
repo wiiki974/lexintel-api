@@ -1,14 +1,15 @@
 {
   "name": "lexibot-api",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "LexiBot - Assistant juridique IA (API Express + OpenAI)",
+  "main": "server.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
-    "dotenv": "^16.0.3",
+    "dotenv": "^16.4.0",
     "express": "^4.18.2",
-    "openai": "^4.27.0"
+    "openai": "^4.0.0"
   }
 }
